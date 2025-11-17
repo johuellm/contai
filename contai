@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+tool=$(basename "$0")
+
+if test "$tool" = "contai"
+then
+	tool=
+fi
+
+data_dir=~/.local/share/home
+
+mkdir -p $data_dir/local $data_dir/cache $data_dir/config
+
+docker run \
+	--rm \
+	-it \
+	--user $(id -un):$(id -gn) \
+	-v ~/.local/share/contai/home:$HOME \
+	-v "$PWD:$PWD" \
+	-w "$PWD" \
+	contai:latest \
+	$tool \
+	"$@"
