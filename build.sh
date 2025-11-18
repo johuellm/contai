@@ -7,4 +7,5 @@ docker build \
 	--build-arg USERNAME=$(id -un) \
 	--build-arg GID=$(id -g) \
 	--build-arg GROUPNAME=$(id -gn) \
+	"$@" \
 	- < Dockerfile

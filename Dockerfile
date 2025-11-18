@@ -21,6 +21,15 @@ RUN apt-get update && apt-get install -y \
 	python3-pip \
 	git
 
+RUN pip install --break-system-packages \
+	uv \
+	ruff \
+	black \
+	isort \
+	pylint \
+	mypy \
+	flake8
+
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
 	apt update && \
 	apt install -y nodejs
