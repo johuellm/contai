@@ -109,6 +109,8 @@ across container sessions.
 - [ ] Find a way to complete OAuth flows from within the container
 - [ ] Integrate with `docker-compose` for easier multi-container setups, for
   cases where other services are needed, like MCP servers
+- [ ] Allow installing packages (add `sudo` with a config in `sudoers` that
+  allow running `apt` without password)
 - [ ] Add configuration file to be able to customize, for example:
 
   * Mapping of directories to mount into the container
