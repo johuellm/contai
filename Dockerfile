@@ -13,31 +13,31 @@ RUN userdel --force --remove ubuntu && \
 
 RUN apt-get update && apt-get install -y \
 	bash-completion \
+	bat \
 	curl \
 	file \
-	ripgrep \
-	bat \
+	git \
 	python3 \
 	python3-pip \
-	git
+	ripgrep
 
 RUN pip install --break-system-packages \
-	uv \
-	ruff \
 	black \
+	flake8 \
 	isort \
-	pylint \
 	mypy \
-	flake8
+	pylint \
+	ruff \
+	uv
 
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
 	apt update && \
 	apt install -y nodejs
 
 RUN npm install -g \
-	@openai/codex \
 	@github/copilot \
 	@google/gemini-cli \
+	@openai/codex \
 	opencode-ai
 
 RUN curl -fsSL https://claude.ai/install.sh | bash
