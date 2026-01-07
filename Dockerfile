@@ -15,11 +15,14 @@ RUN apt-get update && apt-get install -y \
 	bash-completion \
 	bat \
 	curl \
+	direnv \
 	file \
 	git \
 	jq \
 	python3 \
 	python3-pip \
+	shellcheck \
+	shfmt \
 	ripgrep
 
 RUN pip install --break-system-packages \
