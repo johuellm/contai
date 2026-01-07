@@ -8,15 +8,17 @@ then
 	tool=
 fi
 
-data_dir=~/.local/share/home
+data_dir=~/.local/share/contai
 
-mkdir -p $data_dir/local $data_dir/cache $data_dir/config
+home_dir=$data_dir/home
+
+mkdir -p "$home_dir"
 
 docker run \
 	--rm \
 	-it \
 	--user $(id -un):$(id -gn) \
-	-v ~/.local/share/contai/home:$HOME \
+	-v "$home_dir:$HOME" \
 	-v "$PWD:$PWD" \
 	-w "$PWD" \
 	contai:latest \
