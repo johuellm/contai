@@ -114,5 +114,6 @@ across container sessions.
 - [ ] Add configuration file to be able to customize, for example:
 
   * Mapping of directories to mount into the container
+  * Extra packages to install to the image
   * Environment variables to pass to the container (including getting them
     from the current environment)
