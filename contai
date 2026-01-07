@@ -11,13 +11,16 @@ fi
 data_dir=~/.local/share/contai
 
 home_dir=$data_dir/home
+env_file="$data_dir/env.list"
 
 mkdir -p "$home_dir"
+touch "$env_file"
 
 docker run \
 	--rm \
 	-it \
 	--user $(id -un):$(id -gn) \
+	--env-file $env_file \
 	-v "$home_dir:$HOME" \
 	-v "$PWD:$PWD" \
 	-w "$PWD" \
