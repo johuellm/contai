@@ -8,15 +8,20 @@ then
 	tool=
 fi
 
-data_dir=~/.local/share/home
+data_dir=~/.local/share/contai
 
-mkdir -p $data_dir/local $data_dir/cache $data_dir/config
+home_dir=$data_dir/home
+env_file="$data_dir/env.list"
+
+mkdir -p "$home_dir"
+touch "$env_file"
 
 docker run \
 	--rm \
 	-it \
 	--user $(id -un):$(id -gn) \
-	-v ~/.local/share/contai/home:$HOME \
+	--env-file $env_file \
+	-v "$home_dir:$HOME" \
 	-v "$PWD:$PWD" \
 	-w "$PWD" \
 	contai:latest \

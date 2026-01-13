@@ -84,6 +84,13 @@ contai opencode
 Your configuration and data will be persisted in `~/.local/share/contai/home`
 across container sessions.
 
+## Environment Variables
+
+You can define environment variables in the container by writing to a
+`~/.local/share/contai/env.list` file. The file is expected to have the
+standard [docker `--env-file`
+format](https://docs.docker.com/reference/cli/docker/container/run/#env).
+
 ## Known Issues
 
 * Tested almost exclusively with OpenCode for now.
@@ -109,8 +116,10 @@ across container sessions.
 - [ ] Find a way to complete OAuth flows from within the container
 - [ ] Integrate with `docker-compose` for easier multi-container setups, for
   cases where other services are needed, like MCP servers
+- [ ] Allow installing packages (add `sudo` with a config in `sudoers` that
+  allow running `apt` without password)
+- [ ] Support forwarding environment variables from the current environment.
 - [ ] Add configuration file to be able to customize, for example:
 
   * Mapping of directories to mount into the container
-  * Environment variables to pass to the container (including getting them
-    from the current environment)
+  * Extra packages to install to the image
