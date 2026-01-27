@@ -36,18 +36,18 @@ For tools you only need once, you can run them directly without installing:
 pkgx <tool> [args...]
 ```
 
-## Fallback: nix-portable
+### Fallback: nix-portable
 
 If a tool is not available via pkgx, use `nix-portable` as a fallback. It has
 access to 80,000+ packages from nixpkgs.
 
-### One-off execution with nix-portable
+#### One-off execution with nix-portable
 
 ```sh
 nix-portable nix run nixpkgs#<package> -- [args...]
 ```
 
-### Examples
+#### Examples
 
 ```sh
 # Run a tool once
@@ -57,7 +57,7 @@ nix-portable nix run nixpkgs#cowsay -- "Hello"
 nix-portable nix run nixpkgs#python311Packages.ipython
 ```
 
-### Installing for repeated use
+#### Installing for repeated use
 
 To make a nix package available without the prefix, create a wrapper script:
 
@@ -74,7 +74,7 @@ chmod +x ~/.local/bin/<tool>
 <tool> [args...]
 ```
 
-### Example: Installing cowsay via nix-portable
+#### Example: Installing cowsay via nix-portable
 
 ```sh
 mkdir -p ~/.local/bin
@@ -88,7 +88,7 @@ chmod +x ~/.local/bin/cowsay
 cowsay "Hello from nix!"
 ```
 
-## Important
+### Important
 
 - Do NOT use `apt-get`, `apt`, or other system package managers - they require
   root which is not available
