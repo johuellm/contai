@@ -21,6 +21,8 @@ system (i.e. normal people).
   working directory
 - **Development Tools Included**: Comes with ripgrep, bat, git, Python,
   Node.js, and other essential tools
+- **On-demand Tool Installation**: Includes [pkgx](https://pkgx.dev/) for
+  installing additional tools without root access
 - **Symlink-friendly**: Can be symlinked as different tool names (e.g.,
   `opencode` symlink runs OpenCode directly)
 
@@ -64,6 +66,53 @@ ln -s contai claude
 ```
 
 Now you can run tools directly (e.g., `opencode` instead of `contai opencode`).
+
+### Install AI Agent Instructions
+
+To enable AI agents to work best inside the container (e.g., using `pkgx` for
+missing tools instead of `apt-get`), install the provided `agent-instructions.md`
+file to the appropriate location for your AI tool:
+
+```sh
+# Create the container's home config directories
+home=~/.local/share/contai/home
+mkdir -p "$home"
+```
+
+#### OpenCode
+
+```sh
+# OpenCode
+mkdir -p "$home/.config/opencode"
+cp agent-instructions.md "$home/.config/opencode/AGENTS.md"
+```
+
+#### Claude Code
+
+```sh
+mkdir -p "$home/.claude"
+cp agent-instructions.md "$home/.claude/CLAUDE.md"
+```
+
+#### Google Gemini CLI
+
+```sh
+mkdir -p "$home/.gemini"
+cp agent-instructions.md "$home/.gemini/GEMINI.md"
+```
+
+#### OpenAI Codex CLI
+
+```sh
+mkdir -p "$home/.codex"
+cp agent-instructions.md "$home/.codex/AGENTS.md"
+```
+
+#### GitHub Copilot CLI
+
+GitHub Copilot CLI only supports project-level instructions (not global), so
+you would need to copy the file to each project's
+`.github/copilot-instructions.md`.
 
 ## Usage
 
@@ -116,8 +165,6 @@ format](https://docs.docker.com/reference/cli/docker/container/run/#env).
 - [ ] Find a way to complete OAuth flows from within the container
 - [ ] Integrate with `docker-compose` for easier multi-container setups, for
   cases where other services are needed, like MCP servers
-- [ ] Allow installing packages (add `sudo` with a config in `sudoers` that
-  allow running `apt` without password)
 - [ ] Support forwarding environment variables from the current environment.
 - [ ] Add configuration file to be able to customize, for example:
 

@@ -59,3 +59,8 @@ RUN npm install -g \
 	opencode-ai
 
 RUN curl -fsSL https://claude.ai/install.sh | bash
+
+RUN curl -Ls https://pkgx.sh/$(uname)/$(uname -m) -o /usr/local/bin/pkgx && \
+	chmod +x /usr/local/bin/pkgx
+
+ENV PATH="$PATH:/home/${USERNAME}/.local/bin"

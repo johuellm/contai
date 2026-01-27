@@ -14,11 +14,12 @@ Read README.md for complete project documentation including features and usage.
 
 ```
 contai/
-├── AGENTS.md        # This file - AI agent instructions
-├── README.md        # Project documentation
-├── Dockerfile       # Container definition with dev tools
-├── build.sh         # Build script with user permission handling
-└── contai           # Container runner script
+├── AGENTS.md              # This file - AI agent instructions
+├── README.md              # Project documentation
+├── Dockerfile             # Container definition with dev tools
+├── build.sh               # Build script with user permission handling
+├── contai                 # Container runner script
+└── agent-instructions.md  # Global agent instructions for end users
 ```
 
 ## Build Commands
