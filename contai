@@ -20,6 +20,8 @@ docker run \
 	--rm \
 	-it \
 	--user $(id -un):$(id -gn) \
+	--cap-drop=ALL \
+	--security-opt=no-new-privileges \
 	--env-file $env_file \
 	-v "$home_dir:$HOME" \
 	-v "$PWD:$PWD" \

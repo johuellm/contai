@@ -59,3 +59,11 @@ RUN npm install -g \
 	opencode-ai
 
 RUN curl -fsSL https://claude.ai/install.sh | bash
+
+RUN curl -Ls https://pkgx.sh/$(uname)/$(uname -m) -o /usr/local/bin/pkgx && \
+	chmod +x /usr/local/bin/pkgx
+
+RUN curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) \
+	-o /usr/local/bin/nix-portable && chmod +x /usr/local/bin/nix-portable
+
+ENV PATH="$PATH:/home/${USERNAME}/.local/bin"
