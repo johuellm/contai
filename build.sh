@@ -8,4 +8,5 @@ docker build \
 	--build-arg GID=$(id -g) \
 	--build-arg GROUPNAME=$(id -gn) \
 	"$@" \
-	- < Dockerfile
+	-f Dockerfile \
+	.
