@@ -11,8 +11,12 @@ system (i.e. normal people).
 - **Pre-installed AI CLI Tools**: Includes [OpenCode](https://opencode.ai/),
   [OpenAI Codex](https://developers.openai.com/codex/cli/),
   [GitHub Copilot](https://github.com/features/copilot/cli),
-  [Google Gemini](https://github.com/google-gemini/gemini-cli), and
-  [Claude Code](https://www.claude.com/product/claude-code) out of the box
+  [Google Gemini](https://github.com/google-gemini/gemini-cli),
+  [Claude Code](https://www.claude.com/product/claude-code), and
+  [RTK](https://github.com/rtk-ai/rtk) out of the box
+- **Automatic RTK Setup**: Configures RTK at container startup for the shipped
+  home-scoped tools, and when launching Copilot also installs its project-scoped
+  `.github` integration in the current project
 - **User Permission Mapping**: Maintains your host UID/GID for seamless file
   access and ownership
 - **Persistent Home Directory**: Stores configuration and data in
@@ -63,9 +67,11 @@ ln -s contai copilot
 ln -s contai codex
 ln -s contai gemini
 ln -s contai claude
+ln -s contai rtk
 ```
 
-Now you can run tools directly (e.g., `opencode` instead of `contai opencode`).
+Now you can run tools directly (e.g., `opencode` instead of `contai opencode`,
+or `rtk` instead of `contai rtk`).
 
 ### Install AI Agent Instructions
 
@@ -132,6 +138,32 @@ contai opencode
 
 Your configuration and data will be persisted in `~/.local/share/contai/home`
 across container sessions.
+
+## RTK Setup
+
+`contai` initializes RTK at container startup, not at image build time. This is
+necessary because the generated RTK config lives in the mounted container home
+directory (`~/.local/share/contai/home`) and, for Copilot, in the current
+project.
+
+On startup, `contai` automatically configures RTK for:
+
+- Claude Code
+- Google Gemini CLI
+- OpenAI Codex CLI
+- OpenCode
+
+When you launch `copilot`, `contai` also installs RTK's project-scoped Copilot
+integration in the current project root by creating:
+
+- `.github/copilot-instructions.md`
+- `.github/hooks/rtk-rewrite.json`
+
+To check how many tokens RTK has saved across your sessions:
+
+```sh
+contai rtk gain
+```
 
 ## Environment Variables
 

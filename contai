@@ -22,10 +22,11 @@ docker run \
 	--user $(id -un):$(id -gn) \
 	--cap-drop=ALL \
 	--security-opt=no-new-privileges \
-	--env-file $env_file \
+	--env-file "$env_file" \
 	-v "$home_dir:$HOME" \
 	-v "$PWD:$PWD" \
 	-w "$PWD" \
 	contai:latest \
+	/usr/local/bin/contai-bootstrap \
 	$tool \
 	"$@"
