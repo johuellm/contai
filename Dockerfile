@@ -53,10 +53,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
 	apt install -y nodejs
 
 RUN npm install -g \
-	@github/copilot \
-	@google/gemini-cli \
-	@openai/codex \
-	opencode-ai
+	@github/copilot@latest \
+	@google/gemini-cli@latest \
+	@openai/codex@latest \
+	opencode-ai@latest
 
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
