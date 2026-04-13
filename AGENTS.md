@@ -5,8 +5,9 @@ This file provides guidance for AI coding agents working in the contai repositor
 ## Project Overview
 
 contai is a Docker-based sandbox for running AI CLI tools (OpenCode, GitHub Copilot,
-OpenAI Codex, Google Gemini, Claude Code) in isolation. It's a minimal project with
-shell scripts and a Dockerfile - no package.json, no TypeScript, no complex build system.
+OpenAI Codex, Google Gemini, Claude Code, RTK) in isolation. It's a minimal project
+with shell scripts and a Dockerfile - no package.json, no TypeScript, no complex build
+system.
 
 Read README.md for complete project documentation including features and usage.
 
@@ -19,6 +20,7 @@ contai/
 ├── Dockerfile             # Container definition with dev tools
 ├── build.sh               # Build script with user permission handling
 ├── contai                 # Container runner script
+├── contai-bootstrap       # Runtime container bootstrap for RTK setup
 └── agent-instructions.md  # Global agent instructions for end users
 ```
 
@@ -50,6 +52,8 @@ This project has no test suite. Changes should be verified by:
 1. Building the container: `./build.sh`
 2. Running the container and testing functionality: `./contai`
 3. Verifying the AI tools work: `./contai opencode --version`
+4. Verifying binary-installed tools work: `./contai rtk --version`
+5. Verifying RTK bootstrap writes the expected runtime config for shipped tools
 
 ## Linting
 
@@ -59,8 +63,8 @@ No project-level linting is configured. However, the container includes these to
 
 To lint shell scripts locally (if shellcheck is installed):
 ```sh
-shellcheck build.sh contai
-shfmt -d build.sh contai
+shellcheck build.sh contai contai-bootstrap
+shfmt -d build.sh contai contai-bootstrap
 ```
 
 ## Code Style Guidelines
@@ -188,8 +192,11 @@ When modifying this project:
 
 1. **New shell scripts**: Follow the shell style guide above
 2. **New Dockerfile layers**: Group related installations, maintain layer efficiency
-3. **New AI tools**: Add to npm install section in Dockerfile
+3. **New AI tools**: Add to the appropriate Dockerfile install section
+   (`npm install -g` for npm CLIs, release downloads for shipped binaries)
 4. **New system tools**: Add to apt-get install section in Dockerfile
+5. **Runtime tool initialization**: Keep startup logic in `contai-bootstrap`
+   when it depends on the mounted container home or current project
 
 **Important**: When making any changes to the project, especially structural changes
 (adding/removing files, changing build process, modifying project conventions), update
@@ -198,8 +205,8 @@ this AGENTS.md file to reflect those changes.
 ## Common Tasks
 
 ### Adding a New AI Tool
-1. Find the npm package name for the tool
-2. Add it to the `npm install -g` section in Dockerfile
+1. Determine whether the tool should be installed from npm or release binaries
+2. Add it to the matching install section in Dockerfile
 3. Rebuild: `./build.sh`
 4. Test: `./contai <tool-name>`
 

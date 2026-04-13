@@ -37,6 +37,18 @@ RUN pip install --break-system-packages \
 RUN curl -fsSL https://github.com/tamasfe/taplo/releases/latest/download/taplo-linux-x86_64.gz \
 	| gzip -d - | install -m 755 /dev/stdin /usr/local/bin/taplo
 
+RUN arch=$(uname -m) && \
+	case "$arch" in \
+		x86_64|amd64) rtk_target=x86_64-unknown-linux-musl ;; \
+		aarch64|arm64) rtk_target=aarch64-unknown-linux-gnu ;; \
+		*) echo "Unsupported architecture: $arch" >&2; exit 1 ;; \
+	esac && \
+	tmp_dir=$(mktemp -d) && \
+	curl -fsSL "https://github.com/rtk-ai/rtk/releases/latest/download/rtk-$rtk_target.tar.gz" \
+	| tar -xzf - -C "$tmp_dir" && \
+	install -m 755 "$tmp_dir/rtk" /usr/local/bin/rtk && \
+	rm -rf "$tmp_dir"
+
 RUN (type -p wget >/dev/null || (apt update && apt install wget -y)) \
 	&& mkdir -p -m 755 /etc/apt/keyrings \
 	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
@@ -53,10 +65,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
 	apt install -y nodejs
 
 RUN npm install -g \
-	@github/copilot \
-	@google/gemini-cli \
-	@openai/codex \
-	opencode-ai
+	@github/copilot@latest \
+	@google/gemini-cli@latest \
+	@openai/codex@latest \
+	opencode-ai@latest
 
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
@@ -65,5 +77,7 @@ RUN curl -Ls https://pkgx.sh/$(uname)/$(uname -m) -o /usr/local/bin/pkgx && \
 
 RUN curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) \
 	-o /usr/local/bin/nix-portable && chmod +x /usr/local/bin/nix-portable
+
+COPY --chmod=755 contai-bootstrap /usr/local/bin/contai-bootstrap
 
 ENV PATH="$PATH:/home/${USERNAME}/.local/bin"

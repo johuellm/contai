@@ -1,0 +1,75 @@
+#!/bin/sh
+set -eu
+
+tool=
+
+if test $# -gt 0
+then
+	tool=$1
+	shift
+fi
+
+enable_rtk() {
+	if ! command -v rtk >/dev/null 2>&1
+	then
+		return
+	fi
+
+	if test "$tool" = "rtk"
+	then
+		return
+	fi
+
+	run_rtk_init init -g --auto-patch
+	run_rtk_init init -g --gemini --auto-patch
+	run_rtk_init init -g --codex
+	run_rtk_init init -g --opencode
+
+	# RTK's Copilot integration is project-scoped, so only install it when
+	# launching Copilot and write it into the current project's root.
+	if test "$tool" = "copilot"
+	then
+		enable_rtk_copilot
+	fi
+}
+
+run_rtk_init() {
+	if ! rtk "$@" >/dev/null 2>&1
+	then
+		printf 'contai: failed to initialize RTK with: rtk' >&2
+		for arg in "$@"
+		do
+			printf ' %s' "$arg" >&2
+		done
+		printf '\n' >&2
+		return 0
+	fi
+
+	return 0
+}
+
+enable_rtk_copilot() {
+	project_dir=$PWD
+
+	if git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+	then
+		project_dir=$git_root
+	fi
+
+	if ! (
+		cd "$project_dir"
+		rtk init -g --copilot >/dev/null 2>&1
+	)
+	then
+		printf 'contai: failed to initialize RTK Copilot integration in %s\n' "$project_dir" >&2
+	fi
+}
+
+enable_rtk
+
+if test -n "$tool"
+then
+	exec "$tool" "$@"
+fi
+
+exec bash
