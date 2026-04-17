@@ -22,6 +22,7 @@ docker run \
 	--user $(id -un):$(id -gn) \
 	--cap-drop=ALL \
 	--security-opt=no-new-privileges \
+	-e TERM="$TERM" -e COLORTERM="$COLORTERM" \
 	--env-file "$env_file" \
 	-v "$home_dir:$HOME" \
 	-v "$PWD:$PWD" \
