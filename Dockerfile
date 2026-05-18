@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=25.10
+ARG UBUNTU_VERSION=24.04
 
 FROM ubuntu:${UBUNTU_VERSION}
 
@@ -65,19 +65,21 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
 	apt install -y nodejs
 
 RUN npm install -g \
-	@github/copilot@latest \
-	@google/gemini-cli@latest \
-	@openai/codex@latest \
 	opencode-ai@latest
-
-RUN curl -fsSL https://claude.ai/install.sh | bash
 
 RUN curl -Ls https://pkgx.sh/$(uname)/$(uname -m) -o /usr/local/bin/pkgx && \
 	chmod +x /usr/local/bin/pkgx
 
-RUN curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) \
-	-o /usr/local/bin/nix-portable && chmod +x /usr/local/bin/nix-portable
+# RUN curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) \
+# 	-o /usr/local/bin/nix-portable && chmod +x /usr/local/bin/nix-portable
+
 
 COPY --chmod=755 contai-bootstrap /usr/local/bin/contai-bootstrap
 
 ENV PATH="$PATH:/home/${USERNAME}/.local/bin"
+
+RUN curl -fsSL https://astral.sh/uv/install.sh | bash
+ENV UV_TOOL_BIN_DIR="/usr/local/bin"
+ENV UV_TOOL_DIR="/usr/local/bin"
+RUN uv tool install specify-cli \
+	--from git+https://github.com/github/spec-kit.git@v0.8.11
