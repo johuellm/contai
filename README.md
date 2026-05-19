@@ -1,5 +1,11 @@
 # Contain AI! 📦🤖
 
+
+TODO:
+- [ ] add opencode LiteLLM config to README
+- [ ] change base image to opencode?
+
+
 `contai` is a very opinionated Docker-based sandbox for running AI CLI tools
 for people paranoid enough to not wanting to give them access to their whole
 system (i.e. normal people).
