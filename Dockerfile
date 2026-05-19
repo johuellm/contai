@@ -83,3 +83,11 @@ ENV UV_TOOL_BIN_DIR="/usr/local/bin"
 ENV UV_TOOL_DIR="/usr/local/bin"
 RUN uv tool install specify-cli \
 	--from git+https://github.com/github/spec-kit.git@v0.8.11
+
+# RUN npx bmad-method install \
+# 	--directory /bmad \
+# 	--modules bmm \
+# 	--tools opencode \
+# 	--yes
+
+# RUN chown -R ${USERNAME}:${GROUPNAME} /bmad
