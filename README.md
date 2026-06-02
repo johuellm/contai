@@ -30,6 +30,7 @@ opencode web --port 5080 --hostname 0.0.0.0
 ```
 
 Run contai in maintenance mode and execute bmad installer in the workspace directory. Keep in mind to select opencode as tooling (select via SPACE BAR); otherwise the agents and skills will not be installed.
+
 `npx bmad-method install`
 
 .
