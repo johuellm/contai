@@ -28,6 +28,7 @@ docker run \
  	-v "$home_dir:$HOME" \
 	-v "$PWD:/workspace:rw" \
 	-w "/workspace" \
+	-p 5080:5080 \
 	contai:latest \
 	/usr/local/bin/contai-bootstrap \
 	$tool \

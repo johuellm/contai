@@ -32,7 +32,8 @@ RUN pip install --break-system-packages \
 	mypy \
 	pylint \
 	ruff \
-	uv
+	uv \
+	markitdown-mcp
 
 RUN curl -fsSL https://github.com/tamasfe/taplo/releases/latest/download/taplo-linux-x86_64.gz \
 	| gzip -d - | install -m 755 /dev/stdin /usr/local/bin/taplo
