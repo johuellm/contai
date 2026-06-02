@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "litellm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LiteLLM",
+      "options": {
+        "baseURL": "<ADD-LITELLM-URL-HERE>"
+      },
+      "models": {
+        "devstral-2": {
+          "name": "devstral-2"
+        },
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        },
+        "gpt-5.3-codex-US": {
+          "name": "gpt-5.3-codex-US"
+        },
+      	"claude-haiku-4-5": {
+      	  "name": "claude-haiku-4-5"
+      	},
+      	"claude-sonnet-4.6": {
+      	  "name": "claude-sonnet-4.6"
+      	},
+      	"gemini-2.5-pro": {
+      	  "name": "gemini-2.5-pro"
+      	}
+      }
+    }
+  },
+  "mcp": {
+    "markitdown-mcp": {
+      "type": "local",
+      "command": ["markitdown-mcp"],
+      "enabled": true,
+    }
+  }
+}
