@@ -23,7 +23,7 @@ Then you run the following commands to build and run the container:
 ./contai opencode
 
 # run container for debug / maintenance mode
-./contai opencode
+./contai
 
 # run web interface (use browser to navigate to http://localhost:5080)
 opencode web --port 5080 --hostname 0.0.0.0
