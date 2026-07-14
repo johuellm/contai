@@ -34,6 +34,11 @@
       "type": "local",
       "command": ["markitdown-mcp"],
       "enabled": true,
+    },
+    "atlassian-mcp": {
+      "type": "local",
+      "command": ["mcp-atlassian"],
+      "enabled": false,
     }
   }
 }
