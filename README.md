@@ -8,7 +8,7 @@ TODO:
 
 ## Local install
 
-copy `opencode.jsonc` to `<workspace\.opencode` or to `\\wsl.localhost\<distribution>\home\<user>\.local\share\contai\home\.config\opencode`.
+copy `opencode.jsonc` to `<workspace>\.opencode` or to `\\wsl.localhost\<distribution>\home\<user>\.local\share\contai\home\.config\opencode`.
 The former is project-local configuration.
 The latter is global opencode configuration that is via docker to the container.
 
@@ -27,11 +27,20 @@ Then you run the following commands to build and run the container:
 
 # run web interface (use browser to navigate to http://localhost:5080)
 opencode web --port 5080 --hostname 0.0.0.0
+
+# run in container to set up oauth for  mcp-atlassian (or setup API keys -> https://mcp-atlassian.soomiles.com/docs/authentication#api-token-cloud-recommended) 
+mcp-atlassian --oauth-setup -v
 ```
 
 Run contai in maintenance mode and execute bmad installer in the workspace directory. Keep in mind to select opencode as tooling (select via SPACE BAR); otherwise the agents and skills will not be installed.
 
 `npx bmad-method install`
+
+More MCP-servers, e.g., for Microsoft Office and many other integrations, are available.
+- https://mcp-marketplace.io
+- https://mcp.so
+- https://mcpservers.org/de
+- https://github.com/modelcontextprotocol/servers
 
 .
 
